@@ -1,31 +1,12 @@
-using System.Diagnostics;
-using System.Text.Json;
 using System.Text;
 using Xunit;
-using System.Net.Http;
 using DLL.Entities;
-using System.Net.Http.Json;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
-using Moq;
 using UsersAPI.Services.EntityServices.DI;
-using System.Net.Mime;
-using Microsoft.Net.Http.Headers;
-using static System.Net.WebRequestMethods;
-using System.Reflection;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
-using System.Security.Principal;
-using UsersAPI.Services.EntityServices;
 using Microsoft.Extensions.DependencyInjection;
-using DLL.Abstractions;
-using DLL.Repositories;
-using DLL;
 using UsersAPI.Services;
-using Microsoft.EntityFrameworkCore;
-using System.Buffers.Text;
-using Microsoft.AspNetCore.Http;
 
 namespace ApiTests
 {
