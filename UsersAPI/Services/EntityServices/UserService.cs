@@ -21,7 +21,7 @@ namespace UsersAPI.Services.EntityServices
         public async Task CreateAsync(User user)
         {
             try
-            {
+            { 
                 await _repository.CreateAsync(user);
                 await _repository.SaveChangesAsync();
             }

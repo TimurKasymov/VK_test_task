@@ -1,5 +1,6 @@
 ﻿using DLL.Abstractions;
 using DLL.Entities;
+using DLL.Migrations;
 using Microsoft.EntityFrameworkCore;
 using UsersAPI.Services.EntityServices.DI;
 
@@ -39,6 +40,19 @@ namespace UsersAPI.Services.EntityServices
             try
             {
                 _repository.Delete(state);
+                await _repository.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger?.LogCritical(e.Message);
+            }
+        }
+
+        public async Task CreateStateAsync(UserState state)
+        {
+            try
+            {
+                await _repository.CreateAsync(state);
                 await _repository.SaveChangesAsync();
             }
             catch (Exception e)

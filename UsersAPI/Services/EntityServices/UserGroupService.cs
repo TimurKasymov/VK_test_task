@@ -48,5 +48,17 @@ namespace UsersAPI.Services.EntityServices
             }
         }
 
+        public async  Task CreateGroupAsync(UserGroup userGroup)
+        {
+            try
+            {
+                await _repository.CreateAsync(userGroup);
+                await _repository.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger?.LogCritical(e.Message);
+            }
+        }
     }
 }

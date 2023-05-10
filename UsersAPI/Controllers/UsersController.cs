@@ -87,16 +87,10 @@ namespace UsersAPI.Controllers
                     });
                 }
             }
+            
+            user.State = user.State ?? new UserState(State.Active, "default");
+            user.Group = user.Group ?? new UserGroup(Role.User, "default");
 
-            var fetchedState = await _userStateService.GetOrCreateAsync(user.State?.State ?? State.Active); ;
-            var fetchedRole = await _userGroupService.GetOrCreateAsync(user.Group?.Role ?? Role.User);
-            if (fetchedState == null || fetchedRole == null)
-            {
-                return new JsonResult(new
-                {
-                    message = $"server error"
-                });
-            }
             user.Password = _hashService.Hash(user.Password);
             var createdLessFiveSecAgo = await _userService
                 .GetManyAsync(u => u.Login == user.Login && DateTime.UtcNow - u.CreationDate <= TimeSpan.FromSeconds(5) && u.State.State == State.Active);
@@ -110,8 +104,8 @@ namespace UsersAPI.Controllers
                     $"please, waite for {5 - longestToWait} seconds and try again"
                 });
             }
-            user.State = fetchedState!;
-            user.Group = fetchedRole!;
+            user.Id = 0;
+            user.CreationDate = DateTime.UtcNow;
             await _userService.CreateAsync(user);
             return new JsonResult(new { message = $"user with id: {user.Id} added" });
         }
@@ -135,6 +129,13 @@ namespace UsersAPI.Controllers
                 return new JsonResult(new
                 {
                     message = $"server error"
+                });
+            }
+            if(foundUser.State.State == State.Blocked)
+            {
+                return new JsonResult(new
+                {
+                    message = $"this user has already been deleted"
                 });
             }
             foundUser.State = fetchedState;

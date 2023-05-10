@@ -17,6 +17,7 @@ builder.Services.AddDbContext<UsersContext>(options =>
 {
     options.UseNpgsql(connectionString);
 });
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserGroupService, UserGroupService>();
