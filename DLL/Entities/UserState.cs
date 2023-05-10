@@ -1,11 +1,12 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace DLL.Entities
 {
-    public class UserState : BaseEntity
+    public class UserState
     {
         public UserState() { }
         public UserState(State code, string description = null)
@@ -13,6 +14,10 @@ namespace DLL.Entities
             Description = description;
             State = code;
         }
+        [Key]
+        [JsonIgnore]
+        [Column("id")]
+        public int Id { get; set; }
         [JsonPropertyName("description")]
         [Column("description")]
         public string Description { get; set; }

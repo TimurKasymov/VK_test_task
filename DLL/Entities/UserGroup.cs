@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace DLL.Entities
 {
-    public class UserGroup : BaseEntity
+    public class UserGroup
     {
         public UserGroup() { }
         public UserGroup(Role role, string description = null)
@@ -11,7 +12,10 @@ namespace DLL.Entities
             Description = description;
             Role = role;
         }
-
+        [JsonIgnore]
+        [Column("id")]
+        [Key]
+        public int Id { get; set; }
         [JsonPropertyName("description")]
         [Column("description")]
         public string Description { get; set; }

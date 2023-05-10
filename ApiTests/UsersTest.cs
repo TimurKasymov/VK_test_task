@@ -63,12 +63,12 @@ namespace ApiTests
                     var response = await httpClient.SendAsync(request);
                     response.EnsureSuccessStatusCode();
                     var usersToRemove = new List<User> { userToRemove, admin };
-                    await userService.DeleteManyAsync(usersToRemove);
                     foreach (var user in usersToRemove)
                     {
                         await stateSerice.DeleteAsync(user.State);
                         await groupService.DeleteAsync(user.Group);
                     }
+                    await userService.DeleteManyAsync(usersToRemove);
                 }
             }
         }
@@ -108,12 +108,12 @@ namespace ApiTests
                 }
                 var refreshedUsers = await userService.GetManyAsync(u => u.Login == _testWord && u.State.State == State.Active);
                 Assert.True(refreshedUsers.Count() - users.Count() == 1);
-                await userService.DeleteManyAsync(refreshedUsers);
                 foreach (var user in refreshedUsers)
                 {
                     await stateSerice.DeleteAsync(user.State);
                     await groupService.DeleteAsync(user.Group);
                 }
+                await userService.DeleteManyAsync(refreshedUsers);
             }
         }
     }

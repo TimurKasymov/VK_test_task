@@ -7,7 +7,7 @@ namespace DLL.Repositories
     /// <summary>
     /// Класс, который используется для работы с БД через EF Core
     /// </summary>
-    public class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : BaseEntity
+    public class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {
         private readonly UsersContext _dbContext;
 

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DLL.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    [Migration("20230505003105_Users")]
-    partial class Users
+    [Migration("20230510183255_removedJson")]
+    partial class removedJson
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,8 +30,7 @@ namespace DLL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id")
-                        .HasAnnotation("Relational:JsonPropertyName", "id");
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
@@ -49,7 +48,7 @@ namespace DLL.Migrations
                         .HasColumnName("login")
                         .HasAnnotation("Relational:JsonPropertyName", "login");
 
-                    b.Property<string>("PasswordHashed")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("password")
@@ -72,15 +71,9 @@ namespace DLL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id")
-                        .HasAnnotation("Relational:JsonPropertyName", "id");
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_date")
-                        .HasAnnotation("Relational:JsonPropertyName", "created_date");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -97,7 +90,7 @@ namespace DLL.Migrations
 
                     b.ToTable("UserGroups");
 
-                    b.HasAnnotation("Relational:JsonPropertyName", "user_group_id");
+                    b.HasAnnotation("Relational:JsonPropertyName", "user_group");
                 });
 
             modelBuilder.Entity("DLL.Entities.UserState", b =>
@@ -105,15 +98,9 @@ namespace DLL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id")
-                        .HasAnnotation("Relational:JsonPropertyName", "id");
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_date")
-                        .HasAnnotation("Relational:JsonPropertyName", "created_date");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -130,7 +117,7 @@ namespace DLL.Migrations
 
                     b.ToTable("UserStates");
 
-                    b.HasAnnotation("Relational:JsonPropertyName", "user_state_id");
+                    b.HasAnnotation("Relational:JsonPropertyName", "user_state");
                 });
 
             modelBuilder.Entity("DLL.Entities.User", b =>
